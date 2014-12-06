@@ -40,13 +40,13 @@ var Category = React.createClass({
 	},
 	handleClick: function(e) {
 		e.preventDefault();
-		this.setState({current: 0});
-		alert(0);
+		this.setState({current: $(e.target).data('ctg')});
+		console.log('test: ' + $(e.target).data('ctg'));
 	},
 	render: function() {
 		var listNodes = this.props.ctgData.map(function(ctgName, i){
 			return (
-				<li><a href="#" onClick={this.handleClick} key={i}>
+				<li><a href="#" onClick={this.handleClick} key={i} data-ctg={ctgName}>
 				{ctgName}
 				</a></li>
 			);
@@ -96,7 +96,6 @@ var MainContent = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<p>main content</p>
 				<ArtistBox data={this.state.data} />
 				<AddNewArtistForm onAddFormSubmit={this.handleNewArtistSubmit} />
 			</div>
@@ -110,9 +109,9 @@ var ArtistBox = React.createClass({
 		var artistNodes = this.props.data.map(function(artist){
 			return (
 				<div className="artistBox">
-					<h1>{artist.name}</h1>
-					<img src={artist.pic} />
-					<ArtistTracks tracksData={artist.tracks} />
+					<p className="artistName">{artist.name}</p>
+					<p className="trackName">{artist.track}</p>
+					<ArtistTracks trackYtb={artist.youtube} />
 				</div>
 			);
 		});
@@ -126,16 +125,11 @@ var ArtistBox = React.createClass({
 
 var ArtistTracks = React.createClass({
 	render: function() {
-		var tracksNodes = this.props.tracksData.map(function(track){
-			// console.log('test: ' + track);
-			return (
-				<li>{track}</li>
-			);
-		});
+		var youtubeLink = "//www.youtube.com/embed/" + this.props.trackYtb;
 		return (
-			<ul>
-				{tracksNodes}
-			</ul>
+			<div>
+				<iframe width="560" height="315" src={youtubeLink} frameBorder="0" allowFullScreen></iframe>
+			</div>
 		);
 	}
 });
@@ -163,9 +157,9 @@ var AddNewArtistForm = React.createClass({
 			<form className="" onSubmit={this.handleSubmit}>
 				<label htmlFor="artistName">Artist Name</label>
 				<input type="text" id="artistName" ref="artistName" /><br/>
-				<label htmlFor="artistPic">Artist pic</label>
-				<input type="file" id="artistPic" ref="artistPic" /><br/>
-				<label>Tracks:</label>
+				<label htmlFor="ytbId">youtube id:</label>
+				<input type="text" id="ytbId" ref="trackId" /><br/>
+				<label>Track Name:</label>
 				<input type="text" ref="artistTrack" /><br/>
 				<input type="submit" value="Post" />
 			</form>
