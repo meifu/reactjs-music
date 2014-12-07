@@ -1,8 +1,5 @@
 /** @jsx React.DOM */
-// var data = [
-// 	{name: "HAIM", tracks: ["falling", "forever"], pic: "http://placehold.it/350x150"},
-// 	{name: "GhostLoft", tracks: ["so high"], pic: "http://placehold.it/350x150"}
-// ]
+
 var SideContent = React.createClass({
 	loadCategoriesFromServer: function() {
 		console.log('ttt: ' + this.props.url);
@@ -26,6 +23,7 @@ var SideContent = React.createClass({
 	},
 	render: function() {
 		return (
+			// <div className={this.state.current}>
 			<div>
 				<h2>Categories</h2>
 				<Category ctgData={this.state.categoryData} />
@@ -35,16 +33,18 @@ var SideContent = React.createClass({
 });
 
 var Category = React.createClass({
-	getInitialState: function() {
-		return {current: 0}
-	},
+	// getInitialState: function() {
+		// return {current: 'energetic'}
+	// },
 	handleClick: function(e) {
 		e.preventDefault();
 		this.setState({current: $(e.target).data('ctg')});
 		console.log('test: ' + $(e.target).data('ctg'));
 	},
 	render: function() {
+
 		var listNodes = this.props.ctgData.map(function(ctgName, i){
+			// console.log('category render ' + this.state.current);
 			return (
 				<li><a href="#" onClick={this.handleClick} key={i} data-ctg={ctgName}>
 				{ctgName}
@@ -52,6 +52,7 @@ var Category = React.createClass({
 			);
 		}.bind(this)); //要加這個bind(this)才有用噢!!!
 		return (
+			// <ul className={this.state.current}>
 			<ul>
 				{listNodes}
 			</ul>
@@ -167,12 +168,31 @@ var AddNewArtistForm = React.createClass({
 	}
 });
 
-React.renderComponent(
-	<SideContent url="categories.json" pollInterval={2000} />,
-	document.getElementById('aside')
-);
+var OutWrap = React.createClass({
+	getInitialState: function() {
+		return ({current: 'energetic'})
+	},
+	render: function() {
+		return (
+			<div>
+				<SideContent url="categories.json" pollInterval={2000} />
+				<MainContent url="energetic_artistBox.json" />
+			</div>
+		)
+	}
+});
+
+// React.renderComponent(
+// 	<SideContent url="categories.json" pollInterval={2000} />,
+// 	document.getElementById('aside')
+// );
+
+// React.renderComponent(
+// 	<MainContent url="energetic_artistBox.json" />,
+// 	document.getElementById('mainContent')
+// );
 
 React.renderComponent(
-	<MainContent url="energetic_artistBox.json" />,
-	document.getElementById('mainContent')
+	<OutWrap />,
+	document.getElementById('outerWrap')
 );
