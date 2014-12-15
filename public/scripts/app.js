@@ -24,7 +24,7 @@ var SideContent = React.createClass({
 	render: function() {
 		return (
 			// <div className={this.state.current}>
-			<div>
+			<div className="side">
 				<h2>Categories</h2>
 				<Category ctgData={this.state.categoryData} />
 			</div>
@@ -96,7 +96,7 @@ var MainContent = React.createClass({
 	},
 	render: function() {
 		return (
-			<div>
+			<div id="mainContent">
 				<ArtistBox data={this.state.data} />
 				<AddNewArtistForm onAddFormSubmit={this.handleNewArtistSubmit} />
 			</div>

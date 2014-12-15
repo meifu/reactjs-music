@@ -82,18 +82,18 @@ textarea {
   width: 1200px;
   margin: 0 auto; }
 
-aside {
+.side {
   width: 270px;
   padding: 0 15px;
   float: left;
   background: #d2eaea; }
-  aside ul {
+  .side ul {
     padding-left: 0;
     list-style: none; }
-    aside ul li a {
+    .side ul li a {
       text-decoration: none;
       color: #333; }
-    aside ul li:hover a {
+    .side ul li:hover a {
       background: #333;
       color: #fff; }
 
