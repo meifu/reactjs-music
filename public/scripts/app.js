@@ -182,6 +182,14 @@ var OutWrap = React.createClass({
 	}
 });
 
+var CheckLink = React.createClass({
+  render: function() {
+    // This takes any props passed to CheckLink and copies them to <a>
+    return <a {...this.props}>{'√ '}{this.props.children}</a>;
+  }
+});
+
+
 // React.renderComponent(
 // 	<SideContent url="categories.json" pollInterval={2000} />,
 // 	document.getElementById('aside')
@@ -192,7 +200,14 @@ var OutWrap = React.createClass({
 // 	document.getElementById('mainContent')
 // );
 
-React.renderComponent(
+React.render(
 	<OutWrap />,
 	document.getElementById('outerWrap')
+);
+
+React.render(
+  <CheckLink href="/checked.html">
+    Click here!
+  </CheckLink>,
+  document.getElementById('example')
 );
