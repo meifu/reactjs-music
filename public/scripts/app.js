@@ -15,7 +15,7 @@ var SideContent = React.createClass({
 		});
 	},
 	getInitialState: function() {
-		return {categoryData: []};
+		return {categoryData: [], current: 'energetic'};
 	},
 	componentDidMount: function() {
 		this.loadCategoriesFromServer();
@@ -26,7 +26,11 @@ var SideContent = React.createClass({
 			// <div className={this.state.current}>
 			<div className="side">
 				<h2>Categories</h2>
-				<Category ctgData={this.state.categoryData} />
+				<ul className={this.state.current}>
+					{this.state.categoryData.map(function(ctg){
+						return <Category key={ctg.id} ctgData={ctg} />;
+					})}
+				</ul>
 			</div>
 		);
 	}
@@ -43,19 +47,19 @@ var Category = React.createClass({
 	},
 	render: function() {
 
-		var listNodes = this.props.ctgData.map(function(ctgName, i){
+		// var listNodes = this.props.ctgData.map(function(ctgName, i){
 			// console.log('category render ' + this.state.current);
 			return (
-				<li><a href="#" onClick={this.handleClick} key={i} data-ctg={ctgName}>
-				{ctgName}
+				<li><a href="#" onClick={this.handleClick} data-ctg={this.props.ctgData}>
+				{this.props.ctgData}
 				</a></li>
-			);
-		}.bind(this)); //要加這個bind(this)才有用噢!!!
-		return (
+			// );
+		// }.bind(this)); //要加這個bind(this)才有用噢!!!
+		// return (
 			// <ul className={this.state.current}>
-			<ul>
-				{listNodes}
-			</ul>
+			// <ul>
+				// {listNodes}
+			// </ul>
 		);
 	}
 });
