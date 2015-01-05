@@ -2,7 +2,7 @@
 
 var SideContent = React.createClass({
 	loadCategoriesFromServer: function() {
-		console.log('ttt: ' + this.props.url);
+		// console.log('ttt: ' + this.props.url);
 		$.ajax({
 			url: this.props.url,
 			dataType: 'json',
@@ -20,6 +20,7 @@ var SideContent = React.createClass({
 		});
 	},
 	getInitialState: function() {
+		console.log('this state1 ' + this.props.currentCtg);
 		return {categoryData: []};
 	},
 	componentDidMount: function() {
@@ -30,7 +31,7 @@ var SideContent = React.createClass({
 		return (
 			<div className="side">
 				<h2>Categories</h2>
-				<Category ctgData={this.state.categoryData} />
+				<Category ctgData={this.state.categoryData} curCtg={this.props.currentCtg} />
 			</div>
 		);
 	}
@@ -46,14 +47,25 @@ var Category = React.createClass({
 		console.log('test: ' + $(e.target).data('ctg'));
 	},
 	render: function() {
-
+		console.log('this state2 ' + this.props.curCtg);
+		var currentCtgName = this.props.curCtg;
 		var listNodes = this.props.ctgData.map(function(ctgName, i){
 			// console.log('category render ' + this.state.current);
-			return (
-				<li key={i}><a href="#" onClick={this.handleClick} data-ctg={ctgName}>
-				{ctgName}
-				</a></li>
-			);
+			if (currentCtgName == ctgName) {
+				console.log('current obj found!!!');
+				return (
+					<li key={i} className="current"><a href="#" onClick={this.handleClick} data-ctg={ctgName}>
+					{ctgName}
+					</a></li>
+				);
+			} else {
+				return (
+					<li key={i}><a href="#" onClick={this.handleClick} data-ctg={ctgName}>
+					{ctgName}
+					</a></li>
+				);
+			}
+			
 		});
 		return (
 			<ul>
@@ -178,7 +190,7 @@ var OutWrap = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<SideContent url="categories.json" pollInterval={2000} />
+				<SideContent url="musicData.json" pollInterval={2000} currentCtg={this.state.current} />
 				<MainContent url="energetic_artistBox.json" />
 			</div>
 		)
