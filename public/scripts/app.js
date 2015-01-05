@@ -7,7 +7,12 @@ var SideContent = React.createClass({
 			url: this.props.url,
 			dataType: 'json',
 			success: function(data) {
-				this.setState({categoryData: data});
+				var categories = [];
+				for (var category in data) {
+					categories.push(category);
+				}
+				console.log('cat: ' + categories);
+				this.setState({categoryData: categories});
 			}.bind(this),
 			error: function(xhr, status, err) {
 				console.error(this.props.url, status, err.toString());
@@ -23,7 +28,6 @@ var SideContent = React.createClass({
 	},
 	render: function() {
 		return (
-			// <div className={this.state.current}>
 			<div className="side">
 				<h2>Categories</h2>
 				<Category ctgData={this.state.categoryData} />
@@ -46,13 +50,12 @@ var Category = React.createClass({
 		var listNodes = this.props.ctgData.map(function(ctgName, i){
 			// console.log('category render ' + this.state.current);
 			return (
-				<li><a href="#" onClick={this.handleClick} key={i} data-ctg={ctgName}>
+				<li key={i}><a href="#" onClick={this.handleClick} data-ctg={ctgName}>
 				{ctgName}
 				</a></li>
 			);
-		}.bind(this)); //要加這個bind(this)才有用噢!!!
+		});
 		return (
-			// <ul className={this.state.current}>
 			<ul>
 				{listNodes}
 			</ul>
@@ -107,9 +110,9 @@ var MainContent = React.createClass({
 var ArtistBox = React.createClass({
 	render: function() {
 
-		var artistNodes = this.props.data.map(function(artist){
+		var artistNodes = this.props.data.map(function(artist, i){
 			return (
-				<div className="artistBox">
+				<div className="artistBox" key={i}>
 					<p className="artistName">{artist.name}</p>
 					<p className="trackName">{artist.track}</p>
 					<ArtistTracks trackYtb={artist.youtube} />
@@ -126,7 +129,7 @@ var ArtistBox = React.createClass({
 
 var ArtistTracks = React.createClass({
 	render: function() {
-		var youtubeLink = "//www.youtube.com/embed/" + this.props.trackYtb;
+		var youtubeLink = "http://www.youtube.com/apiplayer?video_id=" + this.props.trackYtb + "&version=3";
 		return (
 			<div>
 				<iframe width="560" height="315" src={youtubeLink} frameBorder="0" allowFullScreen></iframe>

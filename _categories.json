@@ -1,3 +1,11 @@
-[
-	"energetic", "self-pity", "digital-beauty"
-]
+{
+	"energetic": [
+		{"name": "HAIM", "track": "forever"}
+	],
+	"calm": [
+		{"name": "London Grammer", "track": "wait"}
+	],
+	"digital": [
+		{"name": "bonobo", "track": "cirrus"}
+	]
+}
