@@ -43,8 +43,8 @@ var Category = React.createClass({
 	// },
 	handleClick: function(e) {
 		e.preventDefault();
-		this.setState({current: $(e.target).data('ctg')});
-		console.log('test: ' + $(e.target).data('ctg'));
+		// this.setState({current: $(e.target).data('ctg')});
+		console.log('oooooooo: ' + $(e.target).data('ctg'));
 	},
 	render: function() {
 		console.log('this state2 ' + this.props.curCtg);
@@ -54,7 +54,7 @@ var Category = React.createClass({
 			if (currentCtgName == ctgName) {
 				console.log('current obj found!!!');
 				return (
-					<li key={i} className="current"><a href="#" onClick={this.handleClick} data-ctg={ctgName}>
+					<li key={i} className="current"><a href="#" data-ctg={ctgName}>
 					{ctgName}
 					</a></li>
 				);
@@ -68,7 +68,7 @@ var Category = React.createClass({
 			
 		});
 		return (
-			<ul>
+			<ul onClick={this.handleClick}>
 				{listNodes}
 			</ul>
 		);
@@ -207,7 +207,7 @@ var OutWrap = React.createClass({
 // 	document.getElementById('mainContent')
 // );
 
-React.renderComponent(
+React.render(
 	<OutWrap />,
 	document.getElementById('outerWrap')
 );
