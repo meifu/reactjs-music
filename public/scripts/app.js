@@ -1,4 +1,4 @@
-
+var React = require('react');
 var SideContent = React.createClass({
 	loadCategoriesFromServer: function() {
 		// console.log('ttt: ' + this.props.url);
