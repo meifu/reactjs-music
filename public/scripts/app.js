@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 
 var SideContent = React.createClass({
 	loadCategoriesFromServer: function() {
