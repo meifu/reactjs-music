@@ -6,7 +6,7 @@ var reactify = require('reactify');
 
 gulp.task('browserify', function() {
 	var bundler = browserify({
-		entries: ['./test.js'],
+		entries: ['./public/scripts/app.js'],
 		transform: [reactify],
 		debug: true
 	});
