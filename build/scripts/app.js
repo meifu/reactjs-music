@@ -25,6 +25,7 @@ var SideContent = React.createClass({displayName: "SideContent",
 		return {categoryData: []};
 	},
 	componentDidMount: function() {
+		console.log('componentDidMount');
 		this.loadCategoriesFromServer();
 		// setInterval(this.loadCategoriesFromServer, this.props.pollInterval);
 	},
@@ -191,8 +192,8 @@ var OutWrap = React.createClass({displayName: "OutWrap",
 	render: function() {
 		return (
 			React.createElement("div", null, 
-				React.createElement(SideContent, {url: "musicData.json", pollInterval: 2000, currentCtg: this.state.current}), 
-				React.createElement(MainContent, {url: "energetic_artistBox.json"})
+				React.createElement(SideContent, {url: "_musicData.json", pollInterval: 2000, currentCtg: this.state.current}), 
+				React.createElement(MainContent, {url: "_energetic_artistBox.json"})
 			)
 		)
 	}
