@@ -5,15 +5,34 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.4.3",
-    "express": "^4.4.5"
+    "express": "^4.4.5",
+    "mongodb": "*",
+    "mongoskin": "*",
+    "react": "*",
+    "react-tools": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "*",
+    "browserify": "*",
+    "gulp-browserify": "*",
+    "watchify": "*",
+    "reactify": "*",
+    "vinyl-source-stream": "*",
+    "gulp-ruby-sass": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-minify-css": "*",
+    "gulp-rename": "*"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "reactjs"
   ],
+  "repository" :{
+    "type": "git",
+    "url": "https://github.com/meifu/reactjs-music"
+    },
   "author": "may",
   "license": "ISC"
 }

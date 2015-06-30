@@ -1,13 +1,18 @@
-/** @jsx React.DOM */
+var React = require('react');
 
 var SideContent = React.createClass({
 	loadCategoriesFromServer: function() {
-		console.log('ttt: ' + this.props.url);
+		// console.log('ttt: ' + this.props.url);
 		$.ajax({
 			url: this.props.url,
 			dataType: 'json',
 			success: function(data) {
-				this.setState({categoryData: data});
+				var categories = [];
+				for (var category in data) {
+					categories.push(category);
+				}
+				console.log('cat: ' + categories);
+				this.setState({categoryData: categories});
 			}.bind(this),
 			error: function(xhr, status, err) {
 				console.error(this.props.url, status, err.toString());
@@ -15,22 +20,19 @@ var SideContent = React.createClass({
 		});
 	},
 	getInitialState: function() {
-		return {categoryData: [], current: 'energetic'};
+		console.log('this state1 ' + this.props.currentCtg);
+		return {categoryData: []};
 	},
 	componentDidMount: function() {
+		console.log('componentDidMount');
 		this.loadCategoriesFromServer();
 		// setInterval(this.loadCategoriesFromServer, this.props.pollInterval);
 	},
 	render: function() {
 		return (
-			// <div className={this.state.current}>
 			<div className="side">
 				<h2>Categories</h2>
-				<ul className={this.state.current}>
-					{this.state.categoryData.map(function(ctg){
-						return <Category key={ctg.id} ctgData={ctg} />;
-					})}
-				</ul>
+				<Category ctgData={this.state.categoryData} curCtg={this.props.currentCtg} />
 			</div>
 		);
 	}
@@ -42,24 +44,34 @@ var Category = React.createClass({
 	// },
 	handleClick: function(e) {
 		e.preventDefault();
-		this.setState({current: $(e.target).data('ctg')});
-		console.log('test: ' + $(e.target).data('ctg'));
+		// this.setState({current: $(e.target).data('ctg')});
+		console.log('oooooooo: ' + $(e.target).data('ctg'));
 	},
 	render: function() {
-
-		// var listNodes = this.props.ctgData.map(function(ctgName, i){
+		console.log('this state2 ' + this.props.curCtg);
+		var currentCtgName = this.props.curCtg;
+		var listNodes = this.props.ctgData.map(function(ctgName, i){
 			// console.log('category render ' + this.state.current);
-			return (
-				<li><a href="#" onClick={this.handleClick} data-ctg={this.props.ctgData}>
-				{this.props.ctgData}
-				</a></li>
-			// );
-		// }.bind(this)); //要加這個bind(this)才有用噢!!!
-		// return (
-			// <ul className={this.state.current}>
-			// <ul>
-				// {listNodes}
-			// </ul>
+			if (currentCtgName == ctgName) {
+				console.log('current obj found!!!');
+				return (
+					<li key={i} className="current"><a href="#" data-ctg={ctgName}>
+					{ctgName}
+					</a></li>
+				);
+			} else {
+				return (
+					<li key={i}><a href="#" onClick={this.handleClick} data-ctg={ctgName}>
+					{ctgName}
+					</a></li>
+				);
+			}
+			
+		});
+		return (
+			<ul onClick={this.handleClick}>
+				{listNodes}
+			</ul>
 		);
 	}
 });
@@ -111,9 +123,9 @@ var MainContent = React.createClass({
 var ArtistBox = React.createClass({
 	render: function() {
 
-		var artistNodes = this.props.data.map(function(artist){
+		var artistNodes = this.props.data.map(function(artist, i){
 			return (
-				<div className="artistBox">
+				<div className="artistBox" key={i}>
 					<p className="artistName">{artist.name}</p>
 					<p className="trackName">{artist.track}</p>
 					<ArtistTracks trackYtb={artist.youtube} />
@@ -130,7 +142,7 @@ var ArtistBox = React.createClass({
 
 var ArtistTracks = React.createClass({
 	render: function() {
-		var youtubeLink = "//www.youtube.com/embed/" + this.props.trackYtb;
+		var youtubeLink = "http://www.youtube.com/apiplayer?video_id=" + this.props.trackYtb + "&version=3";
 		return (
 			<div>
 				<iframe width="560" height="315" src={youtubeLink} frameBorder="0" allowFullScreen></iframe>
@@ -179,8 +191,8 @@ var OutWrap = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<SideContent url="categories.json" pollInterval={2000} />
-				<MainContent url="energetic_artistBox.json" />
+				<SideContent url="_musicData.json" pollInterval={2000} currentCtg={this.state.current} />
+				<MainContent url="_energetic_artistBox.json" />
 			</div>
 		)
 	}
