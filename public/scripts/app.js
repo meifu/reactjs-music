@@ -1,4 +1,21 @@
 var React = require('react');
+var Router = require('react-router');
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
+
+var routes = (
+	<Route handler={App}>
+		<Route path="" handler={}/>
+	</Route>
+);
+
+var App = React.createClass({
+	render () {
+		return (
+
+		)
+	}
+});
 
 var SideContent = React.createClass({
 	loadCategoriesFromServer: function() {
