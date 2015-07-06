@@ -24,7 +24,6 @@ var SideContent = React.createClass({
 	componentDidMount: function() {
 		console.log('componentDidMount');
 		this.loadCategoriesFromServer();
-		// setInterval(this.loadCategoriesFromServer, this.props.pollInterval);
 	},
 	render: function() {
 		return (
@@ -35,6 +34,17 @@ var SideContent = React.createClass({
 		);
 	}
 });
+
+// var SideContent = React.createClass({
+// 	render: function() {
+// 		return (
+// 			<div className="side">
+// 				<h2>Categories</h2>
+// 				<RouteHandler/>
+// 			</div>
+// 		)
+// 	}
+// });
 
 var Category = React.createClass({
 	// getInitialState: function() {
@@ -196,6 +206,7 @@ var OutWrap = React.createClass({
 	}
 });
 
+
 var CheckLink = React.createClass({
   render: function() {
     // This takes any props passed to CheckLink and copies them to <a>
@@ -225,3 +236,15 @@ React.render(
   </CheckLink>,
   document.getElementById('example')
 );
+
+React.render((
+  <Router>
+    <Route path="/" component={App}>
+      <Route path="about" component={About}/>
+      <Route path="users" component={Users}>
+        <Route path="/user/:userId" component={User}/>
+      </Route>
+      <Route path="*" component={NoMatch}/>
+    </Route>
+  </Router>
+), document.body);

@@ -3,18 +3,11 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-// var React = require('react');
-// var Router = require('react-router');
-// var Route = Router.Route;
-// var RouteHandler = Router.RouteHandler;
+var React = require('react');
+var Router = require('react-router');
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
 
-// var routes = (
-// 	<Route handler={App}>
-// 		<Route path="energetic" handler={Energetic}/>
-// 		<Route path="calm" handler={Calm}/>
-// 		<Route path="digital" handler={Digital}/>
-// 	</Route>
-// );
 
 // var App = React.createClass({
 // 	render () {

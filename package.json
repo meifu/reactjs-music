@@ -8,7 +8,7 @@
     "express": "*",
     "react": "*",
     "react-tools": "*",
-    "react-route": "*"
+    "react-router": "*"
   },
   "devDependencies": {
     "gulp": "*",
